@@ -1,0 +1,24 @@
+services:
+  web:
+    build: .
+    container_name: inv_web
+    ports:
+      - "8080:80"
+    networks:
+      - red_publica_net
+      - red_privada_net
+  srv-datos:
+    image: mariadb:11.4
+    container_name: inv_db
+    environment:
+      MARIADB_DATABASE: inventario_db
+      MARIADB_USER: inv_user
+      MARIADB_PASSWORD: inv_password
+      MARIADB_ROOT_PASSWORD: root_pass
+    networks:
+      - red_privada_net
+networks:
+  red_publica_net:
+    driver: bridge
+  red_privada_net:
+    driver: bridge
