@@ -3,22 +3,22 @@ name: Validacion y ejecucion de deploy
 on:
   push:
     branches: ["master"]
-  permissions:
-    contents: read
+permissions:
+  contents: read
 
-  jobs:
-    validar-cosas:
-      runs-on: ubuntu-latest
-      steps:
-        - name: "Preparar repo"
-          uses: actions/checkout@v4
-        - name: "Verificacion de estructura de carpetas"
-          run: |
-            test -d app
-            test -f app/index.php
-            test -f Dockerfile
-            test -f docker-compose.yml
-        - name: "Contruccion de imagen"
-          run: docker compose build
-        - name: "Validar sintaxis del compose"
-          run: docker compose config -q
+jobs:
+  validar-cosas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Preparar repo"
+        uses: actions/checkout@v4
+      - name: "Verificacion de estructura de carpetas"
+        run: |
+          test -d app
+          test -f app/index.php
+          test -f Dockerfile
+          test -f docker-compose.yml
+      - name: "Contruccion de imagen"
+        run: docker compose build
+      - name: "Validar sintaxis del compose"
+        run: docker compose config -q
